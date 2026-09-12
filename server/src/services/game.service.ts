@@ -1,3 +1,4 @@
+import { initGame } from "../logic/game";
 import { gameRepository } from "../repository/game.repository"
 import { GameRoom } from '../types/game'
 
@@ -56,7 +57,7 @@ export const gameService = {
         if (room.players[0].id !== playerId) throw { status: 403, message: 'Solo el creador puede iniciar la partida' }
         if (room.players.length < 2) throw { status: 400, message: 'Se necesitan al menos 2 jugadores' }
 
-        // TODO: funcion para barajear las cartas y meterlas aca
+        initGame(room)
         room.phase = 'playing'
 
         gameRepository.save(room)
@@ -74,11 +75,18 @@ export const gameService = {
             recipeCount: p.recipesHand.length
         }))
 
+        const table = room.columns.map(c => ({
+            topRecipe: c.recipe,
+            veg1: c.vegetables[0],
+            veg2: c.vegetables[1],
+            pileSize: c.pile.length
+        }))
+
         return {
             phase: room.phase,
             currentPlayerId: room.players[room.currentPlayerIndex]?.id ?? null,
             players,
-            columns: room.columns
+            table
         }
     },
 
