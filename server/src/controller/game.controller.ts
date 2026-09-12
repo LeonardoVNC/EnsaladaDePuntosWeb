@@ -59,7 +59,7 @@ export const gameController = {
 
     playCard(req: Request, res: Response) {
         const { playerId, columnIndex, rowIndex } = req.body
-        if (!playerId || !columnIndex || !rowIndex) {
+        if (!playerId || columnIndex === undefined || rowIndex === undefined) {
             res.status(400).json({ error: 'Faltan campos: playerId, columnIndex, rowIndex' });
             return
         }

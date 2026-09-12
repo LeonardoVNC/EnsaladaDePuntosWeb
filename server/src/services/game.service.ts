@@ -1,4 +1,4 @@
-import { initGame } from "../logic/game";
+import { initGame, processPlay } from "../logic/game";
 import { gameRepository } from "../repository/game.repository"
 import { GameRoom } from '../types/game'
 
@@ -100,9 +100,10 @@ export const gameService = {
         if (currentPlayer.id !== playerId) throw { status: 400, message: 'No es tu turno' }
         if (columnIndex < 0 || columnIndex > 2) throw { status: 400, message: 'Columna inválida' }
 
-        // TODO: función para culcular efectos del juego, algo onda processPlay(room, columnIndex, rowIndex)
+        processPlay(room, playerId, columnIndex, rowIndex)
         gameRepository.save(room)
-        return { message: `Falta implementar, pero aca habría una jugada en plan Game:${gameId}, Player:${playerId}, Columna:${columnIndex}, Fila:${rowIndex}` }
+
+        return this.getState(gameId)
     },
 
     getResults(gameId: string) {
