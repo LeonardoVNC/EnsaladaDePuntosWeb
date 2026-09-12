@@ -80,5 +80,30 @@ export const gameService = {
             players,
             columns: room.columns
         }
+    },
+
+    playCard(gameId: string, playerId: string, columnIndex: number, rowIndex: number) {
+        const room = gameRepository.findById(gameId)
+
+        if (!room) throw { status: 404, message: 'Sala no encontrada' }
+        if (room.phase !== 'playing') throw { status: 400, message: 'La partida no está en curso' }
+
+        const currentPlayer = room.players[room.currentPlayerIndex]
+        if (currentPlayer.id !== playerId) throw { status: 400, message: 'No es tu turno' }
+        if (columnIndex < 0 || columnIndex > 2) throw { status: 400, message: 'Columna inválida' }
+
+        // TODO: función para culcular efectos del juego, algo onda processPlay(room, columnIndex, rowIndex)
+        gameRepository.save(room)
+        return { message: `Falta implementar, pero aca habría una jugada en plan Game:${gameId}, Player:${playerId}, Columna:${columnIndex}, Fila:${rowIndex}` }
+    },
+
+    getResults(gameId: string) {
+        const room = gameRepository.findById(gameId)
+
+        if (!room) throw { status: 404, message: 'Sala no encontrada' }
+        if (room.phase !== 'finished') throw { status: 400, message: 'La partida no ha terminado' }
+
+        // TODO: funcion para calcular el resultado del juego, algo como getScore(room)
+        return { message: 'Falta implementar, pero ya merito chicos' }
     }
 }

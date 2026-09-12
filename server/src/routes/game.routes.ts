@@ -7,5 +7,7 @@ router.post('/', gameController.createRoom)
 router.post('/:id/join', gameController.joinRoom)
 router.post('/:id/start', gameController.startGame)
 router.get('/:id/state', gameController.getState)
+router.post('/:id/play', gameController.playCard)
+router.get('/:id/results', gameController.getResults)
 
 export default router

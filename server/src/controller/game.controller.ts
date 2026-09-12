@@ -55,5 +55,30 @@ export const gameController = {
             const e = err as { status?: number; message?: string }
             res.status(e.status ?? 500).json({ error: e.message ?? 'Error interno' })
         }
+    },
+
+    playCard(req: Request, res: Response) {
+        const { playerId, columnIndex, rowIndex } = req.body
+        if (!playerId || !columnIndex || !rowIndex) {
+            res.status(400).json({ error: 'Faltan campos: playerId, columnIndex, rowIndex' });
+            return
+        }
+        try {
+            const result = gameService.playCard(req.params.id + "", playerId, columnIndex, rowIndex)
+            res.json(result)
+        } catch (err: unknown) {
+            const e = err as { status?: number; message?: string }
+            res.status(e.status ?? 500).json({ error: e.message ?? 'Error interno' })
+        }
+    },
+
+    getResults(req: Request, res: Response) {
+        try {
+            const result = gameService.getResults(req.params.id + "")
+            res.json(result)
+        } catch (err: unknown) {
+            const e = err as { status?: number; message?: string }
+            res.status(e.status ?? 500).json({ error: e.message ?? 'Error interno' })
+        }
     }
 }
