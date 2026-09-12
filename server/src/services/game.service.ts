@@ -1,4 +1,5 @@
 import { initGame, processPlay } from "../logic/game";
+import { calculateScores } from "../logic/score";
 import { gameRepository } from "../repository/game.repository"
 import { GameRoom } from '../types/game'
 
@@ -112,7 +113,7 @@ export const gameService = {
         if (!room) throw { status: 404, message: 'Sala no encontrada' }
         if (room.phase !== 'finished') throw { status: 400, message: 'La partida no ha terminado' }
 
-        // TODO: funcion para calcular el resultado del juego, algo como getScore(room)
-        return { message: 'Falta implementar, pero ya merito chicos' }
+        const results = calculateScores(room)
+        return { results }
     }
 }
