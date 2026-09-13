@@ -1,20 +1,67 @@
+import { useState } from "react";
+import type { GameState } from "../types/api";
+import { useGame } from "../hooks/useGame";
+import PlayerInfo from "../components/PlayerInfo";
+import Board from "../components/Board";
+
 interface GamePageProps {
     gameId: string,
     playerId: string,
     onEndGame: () => void
 }
 
-function GamePage(props: GamePageProps) {
+function GamePage({ gameId, playerId, onEndGame }: GamePageProps) {
+    const [error, setError] = useState<string | null>(null)
+    const [lastState, setLastState] = useState<GameState | null>(null)
+
+    const { state, error: gameError } = useGame({
+        gameId,
+        enabled: true,
+        onPhaseChange: (phase) => {
+            if (phase === 'finished') onEndGame()
+        }
+    })
+
+    const gameState = state ?? lastState
+    if (state && state !== lastState) setLastState(state)
+
+    const isMyTurn = gameState?.currentPlayerId === playerId
+
+    const handleError = (msg: string) => {
+        setError(msg)
+        setTimeout(() => setError(null), 3000)
+    }
+
+    if (!gameState) return <div className="loading-screen">Cargando partida...</div>
+
     return (
         <>
-            Soy una página de juegos wiwiwiwi
-            <br />
-            Traigo esta otra info:
-            <br />
-            GameID: {props.gameId} <br />
-            PlayerID: {props.playerId} 
-            <br />
-            <button onClick={() => { props.onEndGame() }}>Presioname.</button>
+            <div className="game-screen">
+                <PlayerInfo
+                    players={gameState.players}
+                    currentPlayerId={gameState.currentPlayerId}
+                    myPlayerId={playerId}
+                />
+
+                <div className="turn-banner">
+                    {isMyTurn
+                        ? '✨ Es tu turno — elige una carta'
+                        : `Turno de ${gameState.players.find(p => p.id === gameState.currentPlayerId)?.name ?? '...'}`
+                    }
+                </div>
+
+                <Board
+                    table={gameState.table}
+                    gameId={gameId}
+                    playerId={playerId}
+                    isMyTurn={isMyTurn}
+                    onError={handleError}
+                />
+
+                {(error || gameError) && (
+                    <div className="error-toast">{error ?? gameError}</div>
+                )}
+            </div>
         </>
     );
 }

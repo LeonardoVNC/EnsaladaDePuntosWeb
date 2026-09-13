@@ -33,11 +33,18 @@ export interface PlayerPublic {
     recipeCount: number
 }
 
+export interface TableRow {
+    topRecipe: Card | null
+    veg1: Card | null
+    veg2: Card | null
+    pileSize: number
+}
+
 export interface GameState {
     phase: GamePhase
     currentPlayerId: string | null
     players: PlayerPublic[]
-    columns: [Column, Column, Column]
+    table: [TableRow, TableRow, TableRow]
 }
 
 export interface PlayerScore {
