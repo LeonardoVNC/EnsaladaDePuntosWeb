@@ -49,11 +49,10 @@ const describeFunc = (func: RecipeFunc): string => {
 
 function CardView({ card, side, clickable, onClick }: CardViewProps) {
     if (!card) return <div className="card card-empty">—</div>
+    const bgColor = VEGETABLE_COLOR[card.vegetable]
+    const img = VEGETABLE_IMG[card.vegetable]
 
     if (side === 'vegetable') {
-        const bgColor = VEGETABLE_COLOR[card.vegetable]
-        const img = VEGETABLE_IMG[card.vegetable]
-
         return (
             <div
                 className={`card card-vegetable ${clickable ? 'clickable' : ''}`}
@@ -80,7 +79,10 @@ function CardView({ card, side, clickable, onClick }: CardViewProps) {
             className={`card card-recipe ${clickable ? 'clickable' : ''}`}
             onClick={clickable ? onClick : undefined}
         >
-            <span className="card-vegetable-tag">
+            <span
+                className="card-vegetable-tag"
+                style={{ background: bgColor, borderColor: bgColor }}
+            >
                 {VEGETABLE_IMG[card.vegetable]} {card.vegetable}
             </span>
             <ul className="card-functions">

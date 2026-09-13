@@ -284,7 +284,7 @@ input[type="text"]:focus {
   padding: 0.5rem;
 }
 
-/* ── BOARD ────────────────────────────────── */
+/* GamePage */
 .game-screen {
   background: var(--green-intense);
   min-height: 100vh;
@@ -502,8 +502,8 @@ input[type="text"]:focus {
 }
 
 .card-recipe {
-  background: var(--yellow-card);
-  border: 1.5px solid var(--yellow-border);
+  background: var(--green-intense);
+  border: 2px solid var(--green-mid);
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -522,12 +522,12 @@ input[type="text"]:focus {
 .card-vegetable-tag {
   display: flex;
   align-items: center;
+  padding: 0.5rem;
   gap: 6px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 700;
-  color: var(--yellow-text);
-  padding-bottom: 4px;
-  border-bottom: 1px solid var(--yellow-border);
+  color: var(--white);
+  border-radius: 12px;
 }
 
 .card-vegetable-tag img {
@@ -541,11 +541,15 @@ input[type="text"]:focus {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  background-color: var(--white);
+  padding: 0.75rem;
+  border-radius: 16px;
 }
 
 .card-functions li {
-  font-size: 11px;
-  color: var(--yellow-text);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--green-mid);
   line-height: 1.4;
   padding-left: 10px;
   position: relative;
