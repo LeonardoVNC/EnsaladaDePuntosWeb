@@ -429,6 +429,10 @@ input[type="text"]:focus {
   padding: 16px 10px;
 }
 
+.pile-vegetable .card-empty {
+  flex:1
+}
+
 .card-vegetable {
   display: flex;
   flex-direction: column;
@@ -550,7 +554,7 @@ input[type="text"]:focus {
   font-size: 14px;
   font-weight: 600;
   color: var(--green-mid);
-  line-height: 1.4;
+  line-height: 2;
   padding-left: 10px;
   position: relative;
 }
@@ -559,4 +563,10 @@ input[type="text"]:focus {
   content: "·";
   position: absolute;
   left: 2px;
+}
+.recipe-veg-inline {
+  height: 1.35rem;
+  object-fit: contain;
+  vertical-align: middle;
+  margin: 0 2px;
 }

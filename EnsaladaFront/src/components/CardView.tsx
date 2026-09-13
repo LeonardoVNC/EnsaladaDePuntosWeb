@@ -1,11 +1,6 @@
 import type { Card, RecipeFunc, VegetableType } from '../types/api'
 import type { ReactElement } from 'react';
-import tomate from '../assets/Tomate.png';
-import zanahoria from '../assets/Zanahoria.png';
-import col from '../assets/Col.png';
-import lechuga from '../assets/Lechuga.png';
-import pimiento from '../assets/Pimiento.png';
-import cebolla from '../assets/Cebolla.png';
+import { images, VEGETABLE_SRC, VEGETABLE_COLOR } from '../constants/vegetables';
 
 interface CardViewProps {
     card: Card | null
@@ -14,36 +9,42 @@ interface CardViewProps {
     onClick: () => void
 }
 
-const VEGETABLE_COLOR: Record<VegetableType, string> = {
-    Tomate: '#c83e18',
-    Zanahoria: '#f88126',
-    Col: '#7e1086',
-    Lechuga: '#45ac3f',
-    Pimiento: '#e9bf35',
-    Cebolla: '#db39ad'
+const VEGETABLE_IMG: Record<VegetableType, ReactElement> = {
+    Tomate: <img className="card-img" src={images.tomate} alt="Tomate" />,
+    Zanahoria: <img className="card-img" src={images.zanahoria} alt="Zanahoria" />,
+    Col: <img className="card-img" src={images.col} alt="Col" />,
+    Lechuga: <img className="card-img" src={images.lechuga} alt="Lechuga" />,
+    Pimiento: <img className="card-img" src={images.pimiento} alt="Pimiento" />,
+    Cebolla: <img className="card-img" src={images.cebolla} alt="Cebolla" />
 }
 
-const VEGETABLE_IMG: Record<VegetableType, ReactElement> = {
-    Tomate: <img className="card-img" src={tomate} alt="LogoTomate" />,
-    Zanahoria: <img className="card-img" src={zanahoria} alt="LogoZanahoria" />,
-    Col: <img className="card-img" src={col} alt="LogoCol" />,
-    Lechuga: <img className="card-img" src={lechuga} alt="LogoLechuga" />,
-    Pimiento: <img className="card-img" src={pimiento} alt="LogoPimiento" />,
-    Cebolla: <img className="card-img" src={cebolla} alt="LogoCebolla" />
-}
-const describeFunc = (func: RecipeFunc): string => {
+const VImg = ({ v }: { v: VegetableType }) => (<img src={VEGETABLE_SRC[v]} alt={v} className="recipe-veg-inline" />)
+const pts = (n: number) => `${n > 0 ? '+' : ''}${n} pts`
+
+const describeFunc = (func: RecipeFunc): ReactElement => {
     switch (func.type) {
-        case 'Count': return `Por cada ${func.every} ${func.vegetable}: ${func.points > 0 ? '+' : ''}${func.points} pts`
-        case 'Comb2': return `Par ${func.v1}+${func.v2}: +${func.points} pts`
-        case 'Comb3': return `Trío ${func.v1}+${func.v2}+${func.v3}: +${func.points} pts`
-        case 'Max': return `Más ${func.vegetable}: +${func.points} pts`
-        case 'Min': return `Menos ${func.vegetable}: +${func.points} pts`
-        case 'OddEven': return `${func.vegetable} par: +${func.evenPoints}, impar: +${func.oddPoints} pts`
-        case 'MaxTotal': return `Más verduras en total: +${func.points} pts`
-        case 'MinTotal': return `Menos verduras en total: +${func.points} pts`
-        case 'GroupCount': return `Por verdura con ≥${func.startsAt}: +${func.points} pts`
-        case 'AllVegetables': return `Una de cada: +${func.points} pts`
-        case 'NotAllVegetables': return `Por verdura ausente: +${func.points} pts`
+        case 'Count':
+            return <><span>Por cada {func.every > 1 ? `${func.every}x` : ''}</span><VImg v={func.vegetable} /><span>: {pts(func.points)}</span></>
+        case 'Comb2':
+            return <><span>Par </span><VImg v={func.v1} /><span>+</span><VImg v={func.v2} /><span>: {pts(func.points)}</span></>
+        case 'Comb3':
+            return <><span>Trío </span><VImg v={func.v1} /><span>+</span><VImg v={func.v2} /><span>+</span><VImg v={func.v3} /><span>: {pts(func.points)}</span></>
+        case 'Max':
+            return <><span>Más </span><VImg v={func.vegetable} /><span>: {pts(func.points)}</span></>
+        case 'Min':
+            return <><span>Menos </span><VImg v={func.vegetable} /><span>: {pts(func.points)}</span></>
+        case 'OddEven':
+            return <><VImg v={func.vegetable} /><span> Par: {pts(func.evenPoints)}, Impar: {pts(func.oddPoints)}</span></>
+        case 'MaxTotal':
+            return <><span>Más verduras en total: {pts(func.points)}</span></>
+        case 'MinTotal':
+            return <><span>Menos verduras en total: {pts(func.points)}</span></>
+        case 'GroupCount':
+            return <><span>Por verdura con ≥{func.startsAt}: {pts(func.points)}</span></>
+        case 'AllVegetables':
+            return <><span>Una de cada: {pts(func.points)}</span></>
+        case 'NotAllVegetables':
+            return <><span>Por verdura ausente: {pts(func.points)}</span></>
     }
 }
 
@@ -59,17 +60,11 @@ function CardView({ card, side, clickable, onClick }: CardViewProps) {
                 style={{ background: bgColor, borderColor: bgColor }}
                 onClick={clickable ? onClick : undefined}
             >
-                <div className="card-corner top-right">
-                    {img}
-                </div>
+                <div className="card-corner top-right">{img}</div>
                 <span className="card-name">{card.vegetable.toUpperCase()}</span>
-                <div className="card-vegetable-bg">
-                    {img}
-                </div>
+                <div className="card-vegetable-bg">{img}</div>
                 <span className="card-name rotated">{card.vegetable.toUpperCase()}</span>
-                <div className="card-corner bottom-left">
-                    {img}
-                </div>
+                <div className="card-corner bottom-left">{img}</div>
             </div>
         )
     }
@@ -83,7 +78,7 @@ function CardView({ card, side, clickable, onClick }: CardViewProps) {
                 className="card-vegetable-tag"
                 style={{ background: bgColor, borderColor: bgColor }}
             >
-                {VEGETABLE_IMG[card.vegetable]} {card.vegetable}
+                {img} {card.vegetable}
             </span>
             <ul className="card-functions">
                 {card.functions.map((func, i) => (
