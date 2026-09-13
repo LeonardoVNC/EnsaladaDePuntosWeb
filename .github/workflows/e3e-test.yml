@@ -1,0 +1,48 @@
+name: Pruebas E2E
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+jobs:
+    Probar-E2E:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Descargar codigo
+              uses: actions/checkout@v4
+
+            - name: Descargar nodeJS
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - name: Confirmar nodeJS
+              run: node -v
+            - name: Confirmo npm
+              run: npm -v
+
+            - name: Descargar librerias backend
+              run: npm ci
+              working-directory: server
+            - name: Descargar librerias frontend
+              run: npm ci
+              working-directory: EnsaladaFront
+
+            - name: Construir frontend
+              run: npm run build
+              working-directory: EnsaladaFront
+
+            - name: Instalar e2e
+              run: npm install
+              working-directory: e2e
+
+            - name: Instalar Playwright browsers
+              run: npx playwright install --with-deps chromium
+              working-directory: e2e
+
+            - name: Iniciar servidor e2e y testear
+              run: npx playwright test
+              working-directory: e2e
+              env:
+                  BASE_URL: http://localhost:3000
