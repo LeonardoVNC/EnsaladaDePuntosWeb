@@ -14,7 +14,7 @@ function Column({ column, columnIndex, isMyTurn, onCardClick }: ColumnProps) {
             <div className="column">
                 <div className="pile-count">
                     <img className="column-card-img" src={cardImg} alt="Logo Cartas" />
-                    {column.pileSize} cartas restantes
+                    {column.pileSize === 0 ? `Pila sin más cartas` : `${column.pileSize} ${column.pileSize > 1 ? `cartas restantes` : `carta restante`}`}
                 </div>
                 <CardView
                     card={column.topRecipe}

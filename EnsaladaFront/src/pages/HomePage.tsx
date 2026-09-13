@@ -69,7 +69,7 @@ function HomePage(props: HomePageProps) {
                         <input
                             id="playerName"
                             type="text"
-                            placeholder="Patricio"
+                            placeholder="Ej: Patricio"
                             value={playerName}
                             onChange={e => setPlayerName(e.target.value)}
                             maxLength={20}

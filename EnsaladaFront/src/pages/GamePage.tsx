@@ -51,7 +51,7 @@ function GamePage({ gameId, playerId, onEndGame }: GamePageProps) {
                         : <img className="turn-img" src={logoBorder} alt="OtroTurno"/>
                     }
                     {isMyTurn
-                        ? 'Es tu turno - elige una carta'
+                        ? 'Es tu turno - Elige una carta'
                         : `Turno de ${gameState.players.find(p => p.id === gameState.currentPlayerId)?.name ?? '...'}`
                     }
                 </div>

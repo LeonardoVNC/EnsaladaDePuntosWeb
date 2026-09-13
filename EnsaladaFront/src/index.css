@@ -92,6 +92,10 @@ input[type="text"]:focus {
   outline: none;
   border-color: var(--green-mid);
 }
+input::placeholder {
+  color: #aab5a0;
+  opacity: 3;
+}
 
 
 /* HomePage */
