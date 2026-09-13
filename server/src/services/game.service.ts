@@ -114,6 +114,6 @@ export const gameService = {
         if (room.phase !== 'finished') throw { status: 400, message: 'La partida no ha terminado' }
 
         const results = calculateScores(room)
-        return { results }
+        return { winners: results.winners, scores: results.scores }
     }
 }
