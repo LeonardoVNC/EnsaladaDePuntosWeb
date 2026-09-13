@@ -1,5 +1,6 @@
 import CardView from "./CardView";
 import type { TableRow } from '../types/api'
+import cardImg from '../assets/fluent--playing-cards-20-regular.svg';
 
 interface ColumnProps {
     column: TableRow
@@ -11,7 +12,10 @@ function Column({ column, columnIndex, isMyTurn, onCardClick }: ColumnProps) {
     return (
         <>
             <div className="column">
-                <div className="row-label">Receta wiwiwi</div>
+                <div className="pile-count">
+                    <img className="column-card-img" src={cardImg} alt="Logo Cartas" />
+                    {column.pileSize} cartas restantes
+                </div>
                 <CardView
                     card={column.topRecipe}
                     side="recipe"
@@ -19,25 +23,22 @@ function Column({ column, columnIndex, isMyTurn, onCardClick }: ColumnProps) {
                     onClick={() => onCardClick(columnIndex, 0)}
                 />
 
-                <div className="pile-count">
-                    📦 {column.pileSize} cartas
+                <div className="pile-vegetable">
+                    <CardView
+                        key={0}
+                        card={column.veg1}
+                        side="vegetable"
+                        clickable={isMyTurn && column.veg1 !== null}
+                        onClick={() => onCardClick(columnIndex, 1)}
+                    />
+                    <CardView
+                        key={1}
+                        card={column.veg2}
+                        side="vegetable"
+                        clickable={isMyTurn && column.veg2 !== null}
+                        onClick={() => onCardClick(columnIndex, 2)}
+                    />
                 </div>
-
-                <div className="row-label">Verduras</div>
-                <CardView
-                    key={0}
-                    card={column.veg1}
-                    side="vegetable"
-                    clickable={isMyTurn && column.veg1 !== null}
-                    onClick={() => onCardClick(columnIndex, 1)}
-                />
-                <CardView
-                    key={1}
-                    card={column.veg2}
-                    side="vegetable"
-                    clickable={isMyTurn && column.veg2 !== null}
-                    onClick={() => onCardClick(columnIndex, 2)}
-                />
             </div>
         </>
     );

@@ -1,4 +1,11 @@
 import type { Card, RecipeFunc, VegetableType } from '../types/api'
+import type { ReactElement } from 'react';
+import tomate from '../assets/Tomate.png';
+import zanahoria from '../assets/Zanahoria.png';
+import col from '../assets/Col.png';
+import lechuga from '../assets/Lechuga.png';
+import pimiento from '../assets/Pimiento.png';
+import cebolla from '../assets/Cebolla.png';
 
 interface CardViewProps {
     card: Card | null
@@ -7,14 +14,22 @@ interface CardViewProps {
     onClick: () => void
 }
 
-// TODO: Reemplazar por imágenes luego quizá, de nuevo si tengo tiempo
-const VEGETABLE_EMOJI: Record<VegetableType, string> = {
-    Tomate: '🍅',
-    Zanahoria: '🥕',
-    Col: '🥬',
-    Lechuga: '🥗',
-    Pimiento: '🫑',
-    Cebolla: '🧅'
+const VEGETABLE_COLOR: Record<VegetableType, string> = {
+    Tomate: '#c83e18',
+    Zanahoria: '#f88126',
+    Col: '#7e1086',
+    Lechuga: '#45ac3f',
+    Pimiento: '#e9bf35',
+    Cebolla: '#db39ad'
+}
+
+const VEGETABLE_IMG: Record<VegetableType, ReactElement> = {
+    Tomate: <img className="card-img" src={tomate} alt="LogoTomate" />,
+    Zanahoria: <img className="card-img" src={zanahoria} alt="LogoZanahoria" />,
+    Col: <img className="card-img" src={col} alt="LogoCol" />,
+    Lechuga: <img className="card-img" src={lechuga} alt="LogoLechuga" />,
+    Pimiento: <img className="card-img" src={pimiento} alt="LogoPimiento" />,
+    Cebolla: <img className="card-img" src={cebolla} alt="LogoCebolla" />
 }
 const describeFunc = (func: RecipeFunc): string => {
     switch (func.type) {
@@ -36,13 +51,26 @@ function CardView({ card, side, clickable, onClick }: CardViewProps) {
     if (!card) return <div className="card card-empty">—</div>
 
     if (side === 'vegetable') {
+        const bgColor = VEGETABLE_COLOR[card.vegetable]
+        const img = VEGETABLE_IMG[card.vegetable]
+
         return (
             <div
                 className={`card card-vegetable ${clickable ? 'clickable' : ''}`}
+                style={{ background: bgColor, borderColor: bgColor }}
                 onClick={clickable ? onClick : undefined}
             >
-                <span className="card-emoji">{VEGETABLE_EMOJI[card.vegetable]}</span>
-                <span className="card-name">{card.vegetable}</span>
+                <div className="card-corner top-right">
+                    {img}
+                </div>
+                <span className="card-name">{card.vegetable.toUpperCase()}</span>
+                <div className="card-vegetable-bg">
+                    {img}
+                </div>
+                <span className="card-name rotated">{card.vegetable.toUpperCase()}</span>
+                <div className="card-corner bottom-left">
+                    {img}
+                </div>
             </div>
         )
     }
@@ -53,7 +81,7 @@ function CardView({ card, side, clickable, onClick }: CardViewProps) {
             onClick={clickable ? onClick : undefined}
         >
             <span className="card-vegetable-tag">
-                {VEGETABLE_EMOJI[card.vegetable]} {card.vegetable}
+                {VEGETABLE_IMG[card.vegetable]} {card.vegetable}
             </span>
             <ul className="card-functions">
                 {card.functions.map((func, i) => (

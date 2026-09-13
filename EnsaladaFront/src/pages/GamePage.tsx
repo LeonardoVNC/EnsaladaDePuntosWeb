@@ -3,6 +3,8 @@ import type { GameState } from "../types/api";
 import { useGame } from "../hooks/useGame";
 import PlayerInfo from "../components/PlayerInfo";
 import Board from "../components/Board";
+import logoBorder from '../assets/pagelogo.svg';
+import logoFill from '../assets/pagelogo.png';
 
 interface GamePageProps {
     gameId: string,
@@ -45,7 +47,11 @@ function GamePage({ gameId, playerId, onEndGame }: GamePageProps) {
 
                 <div className="turn-banner">
                     {isMyTurn
-                        ? '✨ Es tu turno — elige una carta'
+                        ? <img className="turn-img" src={logoFill} alt="TuTurno"/>
+                        : <img className="turn-img" src={logoBorder} alt="OtroTurno"/>
+                    }
+                    {isMyTurn
+                        ? 'Es tu turno - elige una carta'
                         : `Turno de ${gameState.players.find(p => p.id === gameState.currentPlayerId)?.name ?? '...'}`
                     }
                 </div>
