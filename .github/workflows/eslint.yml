@@ -1,0 +1,55 @@
+name: Verificar TS
+
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+
+jobs:
+    Checar-Backend:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Descargar codigo
+              uses: actions/checkout@v4
+
+            - name: Descargar nodeJS
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - name: Confirmar nodeJS
+              run: node -v
+            - name: Confirmo npm
+              run: npm -v
+
+            - name: Descargar librerias
+              run: npm ci
+              working-directory: server
+
+            - name: Corremos ESLint
+              run: npm run lint
+              working-directory: server
+
+    Checar-Frotend:
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Descargar codigo
+              uses: actions/checkout@v4
+
+            - name: Descargar nodeJS
+              uses: actions/setup-node@v4
+              with:
+                  node-version: 22
+            - name: Confirmar nodeJS
+              run: node -v
+            - name: Confirmo npm
+              run: npm -v
+
+            - name: Descargar librerias
+              run: npm ci
+              working-directory: EnsaladaFront
+
+            - name: Corremos Run ESLint
+              run: npm run lint
+              working-directory: EnsaladaFront
