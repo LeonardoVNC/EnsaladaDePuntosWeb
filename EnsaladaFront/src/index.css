@@ -176,3 +176,109 @@ input[type="text"]:focus {
   flex: 1;
 }
 
+
+/* LobbyPage */
+.lobby-screen {
+  background: var(--green-intense);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.lobby-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 480px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.lobby-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--green-mid);
+  text-align: center;
+}
+
+.room-code-box {
+  background: var(--green-pale);
+  border: 1.5px solid var(--teal-pale);
+  border-radius: var(--radius-md);
+  padding: 1rem;
+  text-align: center;
+}
+
+.room-code-label {
+  font-size: 12px;
+  color: var(--green-soft);
+  margin-bottom: 4px;
+}
+
+.room-code {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 4px;
+  color: var(--green-mid);
+}
+
+.room-code-hint {
+  font-size: 12px;
+  color: var(--green-soft);
+  margin-top: 4px;
+}
+
+.players-title {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green-soft);
+  margin-bottom: 6px;
+}
+
+.players-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.player-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  background: var(--green-bg);
+  border-radius: var(--radius-sm);
+}
+
+.player-name {
+  font-size: 14px;
+  color: var(--green-dark);
+}
+
+.creator-badge {
+  font-size: 11px;
+  background: rgb(201, 251, 85);
+  color: var(--teal);
+  border: 1px solid var(--teal-pale);
+  border-radius: 20px;
+  padding: 2px 8px;
+}
+
+.waiting-hint {
+  font-size: 13px;
+  color: var(--green-soft);
+  text-align: center;
+}
+
+.loading-text {
+  font-size: 13px;
+  color: var(--gray-text);
+  text-align: center;
+  padding: 0.5rem;
+}
+
