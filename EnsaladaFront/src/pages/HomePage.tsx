@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { gameService } from "../service/game.service";
+import logo from '../assets/logo.png';
 
 interface HomePageProps {
     onJoinGame: (gameId: string, playerId: string, playerName: string) => void
@@ -60,7 +61,7 @@ function HomePage(props: HomePageProps) {
         <>
             <div className="home-screen">
                 <div className="home-card">
-                    <h1 className="home-title">Ensalada de Puntos</h1>
+                    <img className="home-img" src={logo} alt="Logo del juego"/>
                     <p className="home-subtitle">Combina las verduras con las mejores cartas de puntuación y consigue la mejor ensalada!</p>
 
                     <div className="name-input-group">

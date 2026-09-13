@@ -94,3 +94,85 @@ input[type="text"]:focus {
   outline: none;
   border-color: var(--teal);
 }
+
+
+/* HomePage */
+.home-screen {
+  background: var(--green-intense);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.home-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.home-img {
+  display: flex;
+  width: 55%;
+  align-self: center;
+  margin-bottom: 1.5rem;
+}
+
+.home-subtitle {
+  font-size: 14px;
+  color: var(--green-soft);
+  text-align: center;
+  margin-top: -0.75rem;
+}
+
+.name-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.name-input-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green-soft);
+}
+
+.mode-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.action-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.action-group label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--green-soft);
+}
+
+.action-hint {
+  font-size: 14px;
+  color: var(--green-soft);
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.action-buttons button {
+  flex: 1;
+}
+
