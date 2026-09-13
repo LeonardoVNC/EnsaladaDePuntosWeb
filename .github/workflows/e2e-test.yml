@@ -32,6 +32,9 @@ jobs:
             - name: Construir frontend
               run: npm run build
               working-directory: EnsaladaFront
+            - name: Construir backend
+              run: npm run build
+              working-directory: server
 
             - name: Instalar e2e
               run: npm install
