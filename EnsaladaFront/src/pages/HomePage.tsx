@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { gameService } from "../service/game.service";
 import logo from '../assets/logo.png';
+import Rules from "../components/Rules";
 
 interface HomePageProps {
     onJoinGame: (gameId: string, playerId: string, playerName: string) => void
@@ -9,6 +10,7 @@ interface HomePageProps {
 function HomePage(props: HomePageProps) {
     const [playerName, setPlayerName] = useState<string>('')
     const [joinCode, setJoinCode] = useState<string>('')
+    const [showInstructions, setShowInstructions] = useState(false)
 
     const [mode, setMode] = useState<'create' | 'join' | null>(null)
 
@@ -61,7 +63,7 @@ function HomePage(props: HomePageProps) {
         <>
             <div className="home-screen">
                 <div className="home-card">
-                    <img className="home-img" src={logo} alt="Logo del juego"/>
+                    <img className="home-img" src={logo} alt="Logo del juego" />
                     <p className="home-subtitle">Combina las verduras con las mejores cartas de puntuación y consigue la mejor ensalada!</p>
 
                     <div className="name-input-group">
@@ -122,6 +124,20 @@ function HomePage(props: HomePageProps) {
                             </div>
                         </div>
                     )}
+
+                    <hr/>
+                    
+                    <button
+                        className="secondary instructions-btn"
+                        onClick={() => setShowInstructions(true)}
+                    >
+                        ¿Cómo jugar?
+                    </button>
+
+                    <Rules
+                        visible={showInstructions}
+                        onClose={() => setShowInstructions(false)}
+                    />
 
                     {error && <p className="error-message">{error}</p>}
                 </div>
